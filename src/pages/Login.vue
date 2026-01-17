@@ -17,7 +17,7 @@
               type="button"
               @click="setTab('login')"
             >
-              Вход
+              Входcccc
             </button>
             <button
               class="tab-pill tab-pill--right"
