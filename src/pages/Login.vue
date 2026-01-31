@@ -1,27 +1,28 @@
 <template>
-  <section class="page">
-    <h1 class="page-title">Кабинет участника</h1>
+  <section class="font-[var(--font-semiBold)] w-full max-w-[1400px] mx-auto">
+    <h1 class="text-[28px] mt-8 mb-8 text-[rgb(var(--color-text))]">Кабинет участника</h1>
 
     <!-- ВНЕШНИЙ БОЛЬШОЙ ПРЯМОУГОЛЬНИК -->
-    <div class="card-outer">
+    <div class="bg-[rgb(var(--color-bg))] rounded-[32px] px-[120px] py-[80px] shadow-[0_10px_30px_rgba(0,0,0,0.30)] mb-4">
+
       <!-- ВНУТРЕННЯЯ КАРТОЧКА ПОУЖЕ -->
-      <div class="card-inner">
-        <header class="card-header">
-          <h2 class="card-title">Вход /Регистрация</h2>
+      <div class="max-w-[650px] mx-auto bg-[rgb(var(--color-bg))] rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.30)]">
+        <header class="px-[40px] pt-[32px] pb-[24px]">
+          <h2 class="text-[18px] mb-4 text-[rgb(var(--color-text))]">Вход /Регистрация</h2>
 
           <!-- СЕРАЯ ПОЛОСА-ЗАДНИЙ ФОН ДЛЯ ТАБОВ -->
-          <div class="tabs-bar">
+          <div class="grid grid-cols-2 bg-[rgb(var(--color-tab-inactive))] rounded-[6px] p-1">
             <button
-              class="tab-pill"
-              :class="{ 'tab-pill--active': activeTab === 'login' }"
+              class="relative z-10 py-[10px] rounded-[4px] border-none bg-transparent text-sm cursor-pointer font-[var(--font-medium)] text-[rgb(var(--color-tab-inactive-text))] data-[state=active]:bg-[rgb(var(--color-bg))] data-[state=active]:text-[rgb(var(--color-text))] data-[state=active]:shadow-[0_4px_8px_rgba(0,0,0,0.12)]"
+              :data-state="activeTab === 'login' ? 'active' : ''"
               type="button"
               @click="setTab('login')"
             >
-              Входcccc
+              Вход
             </button>
             <button
-              class="tab-pill tab-pill--right"
-              :class="{ 'tab-pill--active': activeTab === 'register' }"
+              class="relative z-10 py-[10px] rounded-[4px] border-none bg-transparent text-sm cursor-pointer font-[var(--font-medium)] text-[rgb(var(--color-tab-inactive-text))] text-center data-[state=active]:bg-[rgb(var(--color-bg))] data-[state=active]:text-[rgb(var(--color-text))] data-[state=active]:shadow-[0_4px_8px_rgba(0,0,0,0.12)]"
+              :data-state="activeTab === 'register' ? 'active' : ''"
               type="button"
               @click="setTab('register')"
             >
@@ -35,138 +36,177 @@
           <form
             v-if="activeTab === 'login'"
             key="login"
-            class="form"
+            class="px-[40px] pb-[40px] flex flex-col gap-4"
             @submit.prevent="onLoginSubmit"
           >
-            <div class="field">
-              <label class="label" for="login-email">Email</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="login-email">Email</label>
               <input
                 id="login-email"
                 v-model="loginForm.email"
                 type="email"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="ivan.petrov@example.com"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="login-password">Пароль</label>
-              <div class="password-field">
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="login-password">Пароль</label>
+              <div class="relative">
                 <input
                   id="login-password"
                   v-model="loginForm.password"
                   :type="loginShowPassword ? 'text' : 'password'"
-                  class="input password-input"
-                  placeholder="••••••••"
-                />
+                  class="h-11 px-3 pr-12 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)] w-full"
+                  placeholder="• • • • • • • •"
+                /> 
                 <button
                   type="button"
-                  class="password-toggle"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 bg-none border-none cursor-pointer p-1 flex items-center justify-center hover:opacity-75 transition-opacity"
                   @click="toggleLoginPassword"
                   :aria-label="loginShowPassword ? 'Скрыть пароль' : 'Показать пароль'"
                 >
-                  <span class="eye-icon" :class="{ 'eye-slash': loginShowPassword }">
-                    👁
-                  </span>
+                  <!-- Перечеркнутый глаз когда пароль скрыт -->
+                  <img 
+                    v-if="!loginShowPassword" 
+                    src="../assets/icons/eye-off.svg" 
+                    alt="Скрыть пароль" 
+                    class="w-5 h-5"
+                  />
+                  <!-- Открытый глаз когда пароль виден -->
+                  <img 
+                    v-else 
+                    src="../assets/icons/eye-on.svg" 
+                    alt="Показать пароль" 
+                    class="w-5 h-5"
+                  />
                 </button>
               </div>
             </div>
 
-            <button type="submit" class="submit-btn">
-              <span class="submit-icon">⏎</span>
+            <button 
+              type="submit" 
+              class="mt-4 h-12 w-full rounded border-none bg-[rgb(var(--color-button))] text-[rgb(var(--color-bg))] flex justify-center items-center gap-2 text-sm cursor-pointer"
+            >
+              <img 
+                src="../assets/icons/enter.svg" 
+                alt="Войти" 
+                class="w-5 h-5 flex-shrink-0"
+              />
               <span>Войти</span>
             </button>
+
           </form>
 
           <!-- Форма регистрации -->
           <form
             v-else
             key="register"
-            class="form"
+            class="px-[40px] pb-[40px] flex flex-col gap-4"
             @submit.prevent="onRegisterSubmit"
           >
-            <div class="field">
-              <label class="label" for="fullName">ФИО</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="fullName">ФИО</label>
               <input
                 id="fullName"
                 v-model="registerForm.fullName"
                 type="text"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="Петров Иван Александрович"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="reg-email">Email</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="reg-email">Email</label>
               <input
                 id="reg-email"
                 v-model="registerForm.email"
                 type="email"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="ivan.petrov@example.com"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="phone">Телефон</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="phone">Телефон</label>
               <input
                 id="phone"
                 v-model="registerForm.phone"
                 type="tel"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="+7 (999) 123-45-67"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="city">Город</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="city">Город</label>
               <input
                 id="city"
                 v-model="registerForm.city"
                 type="text"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="Москва"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="organization">Учреждение / организация</label>
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="organization">Учреждение / организация</label>
               <input
                 id="organization"
                 v-model="registerForm.organization"
                 type="text"
-                class="input"
+                class="h-11 px-3 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)]"
                 placeholder="Колледж гастрономии №1"
               />
             </div>
 
-            <div class="field">
-              <label class="label" for="reg-password">Пароль</label>
-              <div class="password-field">
+            <div class="flex flex-col gap-[4px]">
+              <label class="text-sm text-[rgb(var(--color-text))] mt-[10px] mb-[5px]" for="reg-password">Пароль</label>
+              <div class="relative">
                 <input
                   id="reg-password"
                   v-model="registerForm.password"
                   :type="registerShowPassword ? 'text' : 'password'"
-                  class="input password-input"
+                  class="h-11 px-3 pr-12 rounded border border-[rgba(148,163,184,0.5)] text-sm font-[var(--font-medium)] w-full"
                   placeholder="Придумайте пароль"
                 />
                 <button
                   type="button"
-                  class="password-toggle"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 bg-none border-none cursor-pointer p-1 flex items-center justify-center hover:opacity-75 transition-opacity"
                   @click="toggleRegisterPassword"
                   :aria-label="registerShowPassword ? 'Скрыть пароль' : 'Показать пароль'"
                 >
-                  <span class="eye-icon" :class="{ 'eye-slash': registerShowPassword }">
-                    👁
-                  </span>
+                  <!-- Перечеркнутый глаз когда пароль скрыт -->
+                  <img 
+                    v-if="!registerShowPassword" 
+                    src="../assets/icons/eye-off.svg" 
+                    alt="Скрыть пароль" 
+                    class="w-5 h-5"
+                  />
+                  <!-- Открытый глаз когда пароль виден -->
+                  <img 
+                    v-else 
+                    src="../assets/icons/eye-on.svg" 
+                    alt="Показать пароль" 
+                    class="w-5 h-5"
+                  />
                 </button>
               </div>
             </div>
 
-            <button type="submit" class="submit-btn">
-              <span class="submit-icon">✔</span>
+
+            <button 
+              type="submit" 
+              class="mt-4 h-12 w-full rounded border-none bg-[rgb(var(--color-button))] text-[rgb(var(--color-bg))] flex justify-center items-center gap-2 text-sm cursor-pointer"
+            >
+              <img 
+                src="../assets/icons/check.svg" 
+                alt="Создать аккаунт" 
+                class="w-5 h-5 flex-shrink-0"
+              />
               <span>Создать аккаунт</span>
             </button>
+
           </form>
         </transition>
       </div>
@@ -176,6 +216,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'  // Добавлен роутер
 
 type ActiveTab = 'login' | 'register'
 
@@ -192,6 +233,8 @@ interface RegisterForm {
   organization: string
   password: string
 }
+
+const router = useRouter()  // Экземпляр роутера
 
 const activeTab = ref<ActiveTab>('login')
 
@@ -226,173 +269,31 @@ const toggleRegisterPassword = (): void => {
 
 const onLoginSubmit = (): void => {
   console.log('login', loginForm)
+  // TODO: API запрос на авторизацию
+  router.push('/dashboard')  // Переход на Dashboard
 }
 
 const onRegisterSubmit = (): void => {
   console.log('register', registerForm)
+  // TODO: API запрос на регистрацию
+  router.push('/dashboard')  // Переход на Dashboard
 }
 </script>
 
+
 <style scoped>
-.page {
+main {
+  min-height: 90vh;
+  background-color: var(--color-bg);
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  align-items: center;
   font-family: var(--font-semiBold);
-  width: 100%;
-  max-width: 1400px;
-  margin-inline: auto;
 }
-
-.page-title {
-  font-size: 28px;
-  margin-bottom: 32px;
-  color: var(--color-text);
-}
-
-/* ВНЕШНИЙ БОЛЬШОЙ ПРЯМОУГОЛЬНИК */
-.card-outer {
-  background-color: var(--color-bg);
-  border-radius: 32px;
-  padding: 80px 120px;
-  box-shadow: 0 30px 60px var(--color-shadow);
-}
-
-/* ВНУТРЕННЯЯ КАРТОЧКА С КОНТЕНТОМ */
-.card-inner {
-  max-width: 650px;
-  margin-inline: auto;
-  background-color: var(--color-bg);
-  border-radius: 24px;
-  box-shadow: 0 20px 40px var(--color-shadow);
-}
-
-/* ВЕРХ ВНУТРЕННЕЙ КАРТОЧКИ */
-.card-header {
-  padding: 32px 40px 24px;
-}
-
-.card-title {
-  font-size: 18px;
-  margin-bottom: 16px;
-  color: var(--color-text);
-}
-
-/* СЕРАЯ ПОЛОСА ПОД ВКЛАДКИ */
-.tabs-bar {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background-color: var(--color-tab-inactive);
-  border-radius: 6px;
-  padding: 4px;
-}
-
-/* БЕЛАЯ ПИЛЮЛЯ-КНОПКА */
-.tab-pill {
-  position: relative;
-  z-index: 1;
-  padding: 10px 0;
-  border-radius: 4px;
-  border: none;
-  background-color: transparent;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: var(--font-medium);
-  color: var(--color-tab-inactive-text);
-}
-
-.tab-pill--active {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-}
-
-.tab-pill--right {
-  text-align: center;
-}
-
-/* ФОРМЫ ВНУТРИ КАРТОЧКИ */
-.form {
-  padding: 0 40px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.label {
-  font-size: 14px;
-  color: var(--color-text);
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.input {
-  height: 44px;
-  padding: 0 12px;
-  border-radius: 4px;
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  font-size: 14px;
-  font-family: var(--font-medium);
-}
-
-.input::placeholder {
-  color: var(--color-grey-text);
-}
-
-/* ПОЛЕ С ПАРОЛЕМ + ГЛАЗ */
-.password-field {
-  position: relative;
-}
-
-.password-input {
-  padding-right: 48px; /* место под глазик */
-}
-
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.eye-icon {
-  font-size: 18px;
-  transition: transform 0.2s ease;
-}
-
-.eye-icon.eye-slash {
-  transform: scale(0.9);
-}
-
-/* КНОПКИ */
-.submit-btn {
-  margin-top: 16px;
-  height: 48px;
-  width: 100%;
-  border-radius: 4px;
-  border: none;
-  background-color: var(--color-button);
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.submit-icon {
-  font-size: 16px;
+/* Только placeholder и анимации */
+input::placeholder {
+  color: rgb(var(--color-grey-text));
 }
 
 /* Плавное переключение форм */

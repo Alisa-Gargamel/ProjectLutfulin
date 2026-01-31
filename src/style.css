@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Шрифты Montserrat */
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("./assets/font/Montserrat-Medium.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("./assets/font/Montserrat-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("./assets/font/Montserrat-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("./assets/font/Montserrat-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-SemiBold";
+  src: url("./assets/font/Montserrat-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CSS-переменные */
+:root {
+  /* Шрифты */
+  --font-regular: 'Montserrat-Regular', system-ui, -apple-system, sans-serif;
+  --font-medium: 'Montserrat-Medium', system-ui, -apple-system, sans-serif;
+  --font-light: 'Montserrat-Light', system-ui, -apple-system, sans-serif;
+  --font-bold: 'Montserrat-Bold', system-ui, -apple-system, sans-serif;
+  --font-semiBold: 'Montserrat-SemiBold', system-ui, -apple-system, sans-serif;
+
+  /* Цвета в rgb формате для Tailwind */
+  --color-button: 15 23 42;
+  --color-text: 0 0 0;
+  --color-tab-inactive: 226 232 240;
+  --color-tab-inactive-text: 100 116 139;
+  --color-grey-text: 113 113 123;
+  --color-bg: 255 255 255;
+  --color-shadow: 0 0 0;
+}
